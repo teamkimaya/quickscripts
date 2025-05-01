@@ -5,6 +5,8 @@ import pytz
 from datetime import datetime
 import time
 import os
+import sys
+
 
 CONFIG_FILE = 'config.json'  # Path to your JSON config
 
@@ -61,6 +63,7 @@ def main():
         time.sleep(interval * 60)
 
 if __name__ == "__main__":
+    CONFIG_FILE=sys.argv[1]
     if os.geteuid() != 0:
         print("This script must be run as root.")
         exit(1)
