@@ -1,0 +1,46 @@
+db.taglogs.updateMany(
+  { "storeNodeInfo.deviceId": { $exists: true } },
+  [
+    {
+      $set: {
+        deviceId: {
+          $cond: {
+            if: { $ne: ["$storeNodeInfo.deviceId", null] },
+            then: "$storeNodeInfo.deviceId",
+            else: "$deviceId"
+          }
+        }
+      }
+    }
+  ]
+)
+~~~~~~~~~~~~~~
+db.taglogs.updateMany(
+  {
+    created: { $gte: ISODate('2025-05-11T00:00:00.000+0530') },
+  },
+  {
+    $set: { processed: 'FRESH' },
+  },
+);
+~~~~~~~~~~~~~~
+db.sales_data.updateMany(
+  {
+    posdatetime: { $gte: ISODate('2025-05-11T00:00:00.000+0530') },
+  },
+  {
+    $set: { processed: false },
+  },
+);
+~~~~~~~~~~~~~~~~~~
+
+db.getCollection("live_trades").remove({}) 
+db.getCollection("past_trades").remove({}) 
+db.getCollection("watch_list").remove({}) 
+db.getCollection("algo_logger").remove({}) 
+db.getCollection("btst_tracker").remove({}) 
+db.getCollection("btst_trades").remove({}) 
+db.getCollection("n500_positional").remove({}) 
+db.getCollection("midcap_positional").remove({}) 
+//db.getCollection("btst_tracker").find({})~
+~~~~~~~~~~~~~~
