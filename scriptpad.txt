@@ -14,7 +14,7 @@ db.taglogs.updateMany(
     }
   ]
 )
-~~~~~~~~~~~~~~
+// ~~~~~~~~~~~~~~
 db.taglogs.updateMany(
   {
     created: { $gte: ISODate('2025-05-11T00:00:00.000+0530') },
@@ -23,15 +23,22 @@ db.taglogs.updateMany(
     $set: { processed: 'FRESH' },
   },
 );
-~~~~~~~~~~~~~~
+// ~~~~~~~~~~~~~~
 db.sales_data.updateMany(
   {
-    posdatetime: { $gte: ISODate('2025-05-11T00:00:00.000+0530') },
+    posdatetime: { $gte: ISODate('2025-05-11T00:00:00.000+05:30') }
   },
   {
-    $set: { processed: false },
-  },
+    $set: { processed: false, tried: false, eanTried: true }
+  }
 );
+// ~~~~~~~~~~~~~`
+db.taglogs.updateMany(
+  { sales_data: { $exists: true } },
+  { $unset: { sales_data: "" } }
+);
+//
+db.post_processed_taglogs2.remove({})
 ~~~~~~~~~~~~~~~~~~
 
 db.getCollection("live_trades").remove({}) 
