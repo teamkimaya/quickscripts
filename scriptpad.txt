@@ -70,3 +70,27 @@ db.task_book.insertOne({
   }
 });
 ~~~~
+//db.getCollection("scanagents").find({})
+  db.scanagents.updateOne(
+    { "apiAuthPojo.clientId": "KY7TnchlzQ8-CwK04FJ1Xw" },
+    { $set: { "apiAuthPojo.clientSecret": "$2a$10$1K1sFLDinQdyuakTLfRT2eIGYXVAS38deafagri91kc0aaA5oI1dC" } }
+  )
+    db.api_auth.updateOne(
+    { clientId: "KY7TnchlzQ8-CwK04FJ1Xw" },
+    { $set: { clientSecret: "$2a$10$1K1sFLDinQdyuakTLfRT2eIGYXVAS38deafagri91kc0aaA5oI1dC" } }
+  )
+  db.app_api_auth.updateOne(
+    { clientId: "KY7TnchlzQ8-CwK04FJ1Xw" },
+    { $set: { clientSecret: "$2a$10$1K1sFLDinQdyuakTLfRT2eIGYXVAS38deafagri91kc0aaA5oI1dC" } }
+  )
+    db.scanagents.findOne(
+    { "apiAuthPojo.clientId": "KY7TnchlzQ8-CwK04FJ1Xw" },
+    { name: 1, "apiAuthPojo.clientId": 1 }
+  )
+    db.scanagents.findOne(
+      { 'apiAuthPojo.clientId': 'KY7TnchlzQ8-CwK04FJ1Xw' },
+      { organisationId: 1, name: 1, agentId: 1 }
+    )
+
+
+
